@@ -1,0 +1,40 @@
+{
+  "entities": {
+    "Prompt": {
+      "title": "Prompt",
+      "description": "A user-accessible AI prompt entry stored in the prompt warehouse.",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The display title of the prompt.",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "category": {
+          "type": "string",
+          "description": "The category classification of the prompt.",
+          "enum": ["사진 합성", "스타일 변환", "캐릭터·포스터"]
+        },
+        "content": {
+          "type": "string",
+          "description": "The full multi-line prompt text, supporting over 1,000 characters.",
+          "minLength": 1,
+          "maxLength": 50000
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the prompt was created, used for chronological ordering."
+        }
+      },
+      "required": ["title", "category", "content", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/prompts/{promptId}": {
+      "schema": { "$ref": "#/entities/Prompt" },
+      "description": "Collection storing all AI prompts in chronological order."
+    }
+  }
+}
